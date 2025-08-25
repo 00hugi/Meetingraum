@@ -10,7 +10,7 @@
       --pad: 12px;
       --fg: #ffffff;           /* Textfarbe */
       --bg: #1476c6;           /* Hintergrund */
-      --accent: #999999;       /* Uhr-Farbe */
+      --accent: #ffffff;       /* Uhr-Farbe */
       --font: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
     }
     html, body {
@@ -41,11 +41,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
       /* Passt die Schrift automatisch in die Höhe ein */
-      font-size: 120px;
+      font-size: 100px;
     }
     .clock {
       font-weight: 600;
-      font-size: 64px;
+      font-size: 80px;
       color: var(--accent);
       white-space: nowrap;
     }
@@ -85,7 +85,11 @@
     function updateClock() {
       const now = new Date();
       const d = new Intl.DateTimeFormat("de-CH", {
-        timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit"
+        timeZone: tz,
+        weekday: "long",   // <--- dazu
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
       }).format(now);
       const t = new Intl.DateTimeFormat("de-CH", {
         timeZone: tz, hour: "2-digit", minute: "2-digit", second: showSeconds ? "2-digit" : undefined
