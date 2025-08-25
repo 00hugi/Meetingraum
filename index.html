@@ -48,7 +48,10 @@
     .clock {
       font-weight: 600;
       font-size: 80px;
-      color: var(--fg);
+      line-height: 1;          /* verhindert „Springen“ nach oben/unten */
+      display: flex;           /* macht vertikale Zentrierung möglich */
+      align-items: center;     /* Text wird mittig ausgerichtet */
+      color: var(--fg);        /* gleiche Farbe wie normaler Text */
       white-space: nowrap;
     }
   </style>
