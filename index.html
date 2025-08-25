@@ -23,7 +23,7 @@
       display: grid;
       grid-template-columns: auto 1fr auto;
       gap: 20px;
-      align-items: center;
+      align-items: center;   /* alles in der Zeilenmitte ausrichten */
       height: 100%;
       padding: 0 var(--pad);
       box-sizing: border-box;
@@ -36,22 +36,17 @@
     }
     .text {
       font-weight: 700;
-      line-height: 1;
+      font-size: 80px;       /* deine Schriftgröße */
+      line-height: 1;        /* verhindert zusätzliche Lücken */
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      /* Passt die Schrift automatisch in die Höhe ein */
-      font-size: 80px;
-      display: flex;
-      align-items: center;
     }
     .clock {
       font-weight: 600;
-      font-size: 80px;
-      line-height: 1;          /* verhindert „Springen“ nach oben/unten */
-      display: flex;           /* macht vertikale Zentrierung möglich */
-      align-items: center;     /* Text wird mittig ausgerichtet */
-      color: var(--fg);        /* gleiche Farbe wie normaler Text */
+      font-size: 64px;
+      line-height: 1;        /* gleiche Logik wie beim Text */
+      color: var(--fg);      /* gleiche Farbe wie Text */
       white-space: nowrap;
     }
   </style>
