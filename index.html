@@ -63,9 +63,9 @@
     // ?text=Hallo%20Welt&logo=https://.../logo.png&bg=%230b0b0b&fg=%23ffffff&accent=%23999999&seconds=1
     const params = new URLSearchParams(location.search);
 
-    const text = params.get("text") || "Willkommen!";
+    const text = params.get("text") || "Pikettwoche: Balzer Peter";
     const logo = params.get("logo") || "https://raw.githubusercontent.com/00hugi/Meetingraum/refs/heads/main/Logo_VBZ.png";
-    const bg   = params.get("bg")   || "#0b0b0b";
+    const bg   = params.get("bg")   || "#1476c6";
     const fg   = params.get("fg")   || "#ffffff";
     const ac   = params.get("accent") || "#999999";
     const showSeconds = params.get("seconds") === "1";
