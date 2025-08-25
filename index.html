@@ -36,18 +36,22 @@
     }
     .text {
       font-weight: 700;
-      font-size: 80px;       /* deine Schriftgröße */
-      line-height: 1;        /* verhindert zusätzliche Lücken */
+      font-size: 80px;
+      line-height: 1;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      position: relative;
+      top: 6px;    /* Text nach unten verschieben */
     }
     .clock {
       font-weight: 600;
       font-size: 64px;
-      line-height: 1;        /* gleiche Logik wie beim Text */
-      color: var(--fg);      /* gleiche Farbe wie Text */
+      line-height: 1;
+      color: var(--fg);
       white-space: nowrap;
+      position: relative;
+      top: 4px;    /* Uhr nach unten verschieben */
     }
   </style>
 </head>
