@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=3840, initial-scale=1" />
+  <title>Banner 3840x160</title>
+  <style>
+    :root {
+      --h: 160px;              /* Banner-Höhe */
+      --pad: 12px;
+      --fg: #ffffff;           /* Textfarbe */
+      --bg: #0b0b0b;           /* Hintergrund */
+      --accent: #999999;       /* Uhr-Farbe */
+      --font: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    html, body {
+      margin: 0; padding: 0;
+      width: 3840px; height: var(--h);
+      background: var(--bg); color: var(--fg);
+      font-family: var(--font);
+    }
+    .wrap {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 20px;
+      align-items: center;
+      height: 100%;
+      padding: 0 var(--pad);
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .logo {
+      height: calc(var(--h) - 2*var(--pad));
+      max-width: 900px;        /* schützt vor Überbreite */
+      object-fit: contain;
+    }
+    .text {
+      font-weight: 700;
+      line-height: 1.05;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* Passt die Schrift automatisch in die Höhe ein */
+      font-size: 120px;
+    }
+    .clock {
+      font-weight: 600;
+      font-size: 64px;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img id="logo" class="logo" alt="Logo" />
+    <div id="text" class="text">Willkommen!</div>
+    <div id="clock" class="clock"></div>
+  </div>
+
+  <script>
+    // ---- Einstellungen über URL-Parameter ----
+    // ?text=Hallo%20Welt&logo=https://.../logo.png&bg=%230b0b0b&fg=%23ffffff&accent=%23999999&seconds=1
+    const params = new URLSearchParams(location.search);
+
+    const text = params.get("text") || "Willkommen!";
+    const logo = params.get("logo") || "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png";
+    const bg   = params.get("bg")   || "#0b0b0b";
+    const fg   = params.get("fg")   || "#ffffff";
+    const ac   = params.get("accent") || "#999999";
+    const showSeconds = params.get("seconds") === "1";
+
+    document.documentElement.style.setProperty("--bg", bg);
+    document.documentElement.style.setProperty("--fg", fg);
+    document.documentElement.style.setProperty("--accent", ac);
+
+    const textEl = document.getElementById("text");
+    const logoEl = document.getElementById("logo");
+    const clockEl = document.getElementById("clock");
+    textEl.textContent = text;
+    logoEl.src = logo;
+
+    // Uhr & Datum (Europe/Zurich)
+    const tz = "Europe/Zurich";
+    function updateClock() {
+      const now = new Date();
+      const d = new Intl.DateTimeFormat("de-CH", {
+        timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit"
+      }).format(now);
+      const t = new Intl.DateTimeFormat("de-CH", {
+        timeZone: tz, hour: "2-digit", minute: "2-digit", second: showSeconds ? "2-digit" : undefined
+      }).format(now);
+      clockEl.textContent = `${d} ${t} Uhr`;
+    }
+    updateClock();
+    setInterval(updateClock, showSeconds ? 1000 : 60000);
+
+    // Kleines Auto-Fit für sehr lange Texte: falls abgeschnitten, schrumpfe Schrift etwas
+    function fitText() {
+      const max = 120; // px
+      let size = parseFloat(getComputedStyle(textEl).fontSize);
+      while (textEl.scrollWidth > textEl.clientWidth && size > 40) {
+        size -= 2;
+        textEl.style.fontSize = size + "px";
+      }
+    }
+    window.addEventListener("load", fitText);
+    window.addEventListener("resize", fitText);
+  </script>
+</body>
+</html>
